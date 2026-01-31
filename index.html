@@ -1,340 +1,462 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime University CSE Batch 261 (Evening) Friends Adda</title>
+    <title>Prime University CSE - Evening 261 Batch</title>
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
+    
+    <!-- গুগল ফন্টস -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ফন্ট অসাম আইকন -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        /* === বেসিক ভেরিয়েবল এবং গ্লোবাল স্টাইল === */
         :root {
-            --primary-color: #003366; /* Prime University Blue Tone */
-            --secondary-color: #ff6b6b; /* Accent Color */
+            --primary-color: #003366; /* Prime Blue */
+            --secondary-color: #ffcc00; /* Gold Accent */
+            --dark-bg: #1a1a2e;
             --light-bg: #f8f9fa;
-            --text-dark: #333;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
             background-color: var(--light-bg);
-            color: var(--text-dark);
         }
 
-        /* Navbar Styling */
+        /* === কাস্টম বাটন ডিজাইন (স্মুথ এবং সুন্দর) === */
+        .btn-prime {
+            background: linear-gradient(135deg, var(--primary-color), #004d99);
+            color: #fff;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-prime::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--secondary-color);
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-prime:hover::before {
+            width: 100%;
+        }
+
+        .btn-prime:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 51, 102, 0.4);
+        }
+
+        /* === নেভিগেশন বার === */
         .navbar {
-            background-color: var(--primary-color);
+            background: rgba(0, 51, 102, 0.95);
+            backdrop-filter: blur(10px);
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
         
         .navbar-brand {
             font-weight: 700;
-            color: #fff !important;
             font-size: 1.5rem;
+            color: #fff !important;
         }
-
+        
         .nav-link {
             color: rgba(255,255,255,0.8) !important;
             font-weight: 500;
-            transition: 0.3s;
+            margin: 0 10px;
+            position: relative;
+            transition: color 0.3s;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: #fff !important;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 5px;
+            color: var(--secondary-color) !important;
         }
 
-        /* Hero Section */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after { width: 80%; }
+
+        /* === হিরো সেকশন === */
         .hero-section {
-            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.8)), url('https://picsum.photos/seed/university/1920/1080');
+            background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.7)), url('https://picsum.photos/seed/primeuni/1920/1080.jpg');
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 80px 0;
+            background-attachment: fixed; /* Parallax effect */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            color: #fff;
             position: relative;
         }
 
         .hero-title {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            font-weight: 300;
         }
 
-        .batch-badge {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        /* Section Styling */
-        .section-padding {
-            padding: 60px 0;
-        }
-
+        /* === সেকশন টাইটেল === */
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
             font-weight: 700;
             color: var(--primary-color);
-            position: relative;
             display: inline-block;
-            width: 100%;
+            padding-bottom: 10px;
         }
-
-        .section-title::after {
+        
+        .section-title h2::after {
             content: '';
-            display: block;
             width: 60px;
-            height: 3px;
-            background-color: var(--secondary-color);
-            margin: 10px auto;
+            height: 4px;
+            background: var(--secondary-color);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
 
-        /* Card Styling */
+        /* === কার্ড স্টাইল (নোটিশ এবং টিচার) === */
         .custom-card {
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            background: white;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
             overflow: hidden;
         }
 
         .custom-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        /* Student List Table */
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .notice-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
         }
 
-        .table thead {
-            background-color: var(--primary-color);
-            color: white;
+        .notice-date-badge {
+            background: #e9ecef;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
-        .table-responsive {
-            border-radius: 8px;
+        /* === রুটিন টেবিল === */
+        .table-custom thead {
+            background: var(--primary-color);
+            color: #fff;
         }
-
-        /* Routine Table */
-        .routine-table th, .routine-table td {
-            text-align: center;
+        
+        .table-custom th, .table-custom td {
+            padding: 15px;
             vertical-align: middle;
+            border-color: #eee;
         }
         
-        .routine-time {
-            background-color: #e9ecef;
-            font-weight: bold;
-            color: #555;
+        .table-custom tbody tr {
+            transition: all 0.3s;
+        }
+        
+        .table-custom tbody tr:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+            transform: scale(1.01);
         }
 
-        .current-day {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
+        /* === স্টুডেন্ট টেবিল === */
+        .student-table-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        /* Teacher Card */
-        .teacher-img {
-            height: 200px;
-            object-fit: cover;
+        .student-search {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .student-search input {
             width: 100%;
-        }
-        
-        .teacher-card-body {
-            padding: 20px;
-            text-align: center;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #eee;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
 
-        .teacher-name {
-            font-weight: 700;
-            font-size: 1.2rem;
+        .student-search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 51, 102, 0.1);
+        }
+
+        .student-search i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        /* === টিচার কার্ড === */
+        .teacher-img-wrapper {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .teacher-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .teacher-card:hover .teacher-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .teacher-social a {
+            color: #666;
+            margin: 0 5px;
+            transition: 0.3s;
+        }
+        
+        .teacher-social a:hover {
             color: var(--primary-color);
         }
 
-        .teacher-designation {
-            color: #666;
-            font-size: 0.9rem;
+        /* === এক্সাম / টাইমলাইন === */
+        .exam-item {
+            background: #fff;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #aaa;
-            padding: 40px 0 20px;
+        .exam-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        
-        footer h5 {
-            color: white;
+
+        /* === ফুটার === */
+        footer {
+            background: var(--dark-bg);
+            color: #fff;
+            padding-top: 60px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
             margin-bottom: 20px;
         }
 
-        footer a {
+        .footer-link {
             color: #aaa;
             text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: 0.3s;
         }
 
-        footer a:hover {
-            color: white;
+        .footer-link:hover {
+            color: var(--secondary-color);
+            padding-left: 10px;
         }
 
-        /* Print Styling */
-        @media print {
-            .navbar, .btn-download, .no-print {
-                display: none !important;
-            }
-            .card {
-                border: none;
-                box-shadow: none;
-            }
-            body {
-                background-color: white;
-            }
-            .section-padding {
-                padding: 20px 0;
-            }
+        .map-frame {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        /* === রেসপন্সিভ এডজাস্টমেন্ট === */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .section-title h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-university me-2"></i> Prime University CSE 261
+                <i class="fas fa-university me-2" style="color: var(--secondary-color);"></i> Prime CSE
             </a>
-            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="fa fa-bars" style="color: #fff;"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home">হোম</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#students">শিক্ষার্থী তালিকা</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#routine">রুটিন</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#teachers">শিক্ষকবৃন্দ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#notices">নোটিশ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#notices">Notices</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#routine">Routine</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#students">Students</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#teachers">Teachers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#exams">Exams</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
-                <button onclick="window.print()" class="btn btn-outline-light ms-3 btn-download btn-sm">
-                    <i class="fas fa-download me-1"></i> Full Site সেভ করুন
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="home" class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Prime University</h1>
-            <p class="hero-subtitle">Department of CSE | Batch 261 (Section-B) | Spring 2026</p>
-            <div class="batch-badge">Evening Friends Adda</div>
-            <div class="mt-4">
-                <p>114/116, Mazar Road, Mirpur-1, Dhaka</p>
+    <!-- হিরো সেকশন -->
+    <section id="hero" class="hero-section">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="hero-title mb-3">Evening Batch 261</h1>
+            <p class="hero-subtitle mb-4">Department of Computer Science & Engineering | Spring 2026</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#students" class="btn btn-prime">Student List</a>
+                <a href="#routine" class="btn btn-outline-light rounded-pill px-4 py-2 fw-bold">Class Routine</a>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Student List Section -->
-    <section id="students" class="section-padding">
+    <!-- নোটিশ বোর্ড -->
+    <section id="notices" class="py-5">
         <div class="container">
-            <h2 class="section-title">শিক্ষার্থী তালিকা (List of Students)</h2>
+            <div class="section-title" data-aos="fade-up">
+                <h2>Notice Board</h2>
+                <p class="text-muted mt-2">Stay updated with the latest announcements</p>
+            </div>
             
-            <div class="table-container mb-4">
-                <div class="row mb-3 no-print">
-                    <div class="col-md-6">
-                        <input type="text" id="searchInput" class="form-control" placeholder="নাম বা আইডি দিয়ে খুঁজুন...">
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <span class="text-muted">মোট শিক্ষার্থী: <strong id="studentCount">0</strong></span>
+            <div class="row g-4">
+                <!-- Notice 1 -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="custom-card p-4 text-center" onclick="showNoticeModal('Mid-term Exam Date', 'Mid-term examinations for Spring 2026 will start from 10th March. Check routine for details.', '15 Oct 2023')" style="cursor: pointer;">
+                        <i class="fas fa-bullhorn notice-icon"></i>
+                        <span class="notice-date-badge"><i class="far fa-calendar-alt me-1"></i> 15 Oct 2023</span>
+                        <h5 class="fw-bold mt-2">Mid-term Exam</h5>
+                        <p class="text-muted small">Click to view details regarding the upcoming midterm schedule.</p>
                     </div>
                 </div>
-
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle" id="studentTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">SI</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Mobile No.</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentTableBody">
-                            <!-- Data will be populated via JavaScript -->
-                        </tbody>
-                    </table>
+                <!-- Notice 2 -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="custom-card p-4 text-center" onclick="showNoticeModal('Class Suspension', 'Classes will remain suspended tomorrow due to public holiday.', '12 Oct 2023')" style="cursor: pointer;">
+                        <i class="fas fa-bell notice-icon"></i>
+                        <span class="notice-date-badge"><i class="far fa-calendar-alt me-1"></i> 12 Oct 2023</span>
+                        <h5 class="fw-bold mt-2">Class Suspension</h5>
+                        <p class="text-muted small">Important notice regarding holiday class schedule.</p>
+                    </div>
+                </div>
+                <!-- Notice 3 -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="custom-card p-4 text-center" onclick="showNoticeModal('Lab Schedule Update', 'CSE-311 Lab schedule has been changed to Room 304.', '10 Oct 2023')" style="cursor: pointer;">
+                        <i class="fas fa-flask notice-icon"></i>
+                        <span class="notice-date-badge"><i class="far fa-calendar-alt me-1"></i> 10 Oct 2023</span>
+                        <h5 class="fw-bold mt-2">Lab Update</h5>
+                        <p class="text-muted small">Room change notification for CSE-311 Lab.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Class Routine Section -->
-    <section id="routine" class="section-padding bg-white">
+    <!-- ক্লাস রুটিন -->
+    <section id="routine" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title">ক্লাস রুটিন (Spring 2026)</h2>
-            <div class="table-container">
-                <table class="table table-bordered routine-table">
-                    <thead class="table-dark">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Class Routine</h2>
+            </div>
+            <div class="table-responsive" data-aos="fade-up" data-aos-delay="100">
+                <table class="table table-custom table-hover text-center align-middle">
+                    <thead>
                         <tr>
-                            <th>Day / Time</th>
-                            <th>04:00 PM - 05:30 PM</th>
-                            <th>05:45 PM - 07:15 PM</th>
-                            <th>07:30 PM - 09:00 PM</th>
+                            <th>Day</th>
+                            <th>10:00 AM - 12:00 PM</th>
+                            <th>12:00 PM - 02:00 PM</th>
+                            <th>04:00 PM - 06:00 PM</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="routine-time">Saturday</td>
-                            <td>CSE 211 (Analog Electronics)</td>
-                            <td>Math 217 (Diff. Eq.)</td>
-                            <td>CSE 213 (Structured Prog.)</td>
+                            <td class="fw-bold">Saturday</td>
+                            <td><span class="badge bg-primary">CSE-201</span> (Theory)</td>
+                            <td><span class="badge bg-primary">CSE-203</span> (Theory)</td>
+                            <td><span class="badge bg-secondary">Math-101</span> (Theory)</td>
                         </tr>
                         <tr>
-                            <td class="routine-time">Sunday</td>
-                            <td>ENG 102 (Composition)</td>
-                            <td>CSE 211 (Lab)</td>
-                            <td>CSE 213 (Lab)</td>
+                            <td class="fw-bold">Sunday</td>
+                            <td><span class="badge bg-success">CSE-202</span> (Lab)</td>
+                            <td><span class="badge bg-info text-dark">ENG-102</span> (Theory)</td>
+                            <td><span class="badge bg-success">CSE-204</span> (Lab)</td>
                         </tr>
                         <tr>
-                            <td class="routine-time">Monday</td>
-                            <td>CSE 215 (Data Structure)</td>
-                            <td>Math 217 (Sessional)</td>
-                            <td>Free / Library</td>
+                            <td class="fw-bold">Monday</td>
+                            <td><span class="badge bg-primary">CSE-201</span> (Theory)</td>
+                            <td><span class="badge bg-primary">CSE-203</span> (Theory)</td>
+                            <td class="text-muted">Free Class</td>
                         </tr>
                         <tr>
-                            <td class="routine-time">Tuesday</td>
-                            <td>CSE 215 (Lab)</td>
-                            <td>CSE 213 (Structured Prog.)</td>
-                            <td>CSE 211 (Theory)</td>
-                        </tr>
-                        <tr>
-                            <td class="routine-time">Wednesday</td>
-                            <td>GED 205 (Bangladesh Studies)</td>
-                            <td>CSE 215 (Data Structure)</td>
-                            <td>Math 217 (Theory)</td>
+                            <td class="fw-bold">Tuesday</td>
+                            <td><span class="badge bg-primary">CSE-205</span> (Theory)</td>
+                            <td><span class="badge bg-secondary">Math-101</span> (Theory)</td>
+                            <td><span class="badge bg-warning text-dark">CSE-201</span> (Tutorial)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -342,52 +464,151 @@
         </div>
     </section>
 
-    <!-- Teachers Section -->
-    <section id="teachers" class="section-padding">
+    <!-- স্টুডেন্ট লিস্ট (সার্চ ফিচার সহ) -->
+    <section id="students" class="py-5">
         <div class="container">
-            <h2 class="section-title">আমাদের শ্রদ্ধেয় শিক্ষকবৃন্দ</h2>
+            <div class="section-title" data-aos="fade-up">
+                <h2>Student List</h2>
+                <p>Batch: 261 | Semester: Spring 2026</p>
+            </div>
+
+            <div class="student-table-container" data-aos="flip-up" data-aos-delay="100">
+                <!-- সার্চ বার -->
+                <div class="student-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="studentInput" onkeyup="searchStudent()" placeholder="Search by Name or ID...">
+                </div>
+
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <table class="table table-hover align-middle" id="studentTable">
+                        <thead class="table-dark sticky-top">
+                            <tr>
+                                <th>Sl</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Mobile No.</th>
+                                <th>Signature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data 1-22 -->
+                            <tr><td>1</td><td>26100001</td><td>Sakib Ahammed</td><td>01700000001</td><td></td></tr>
+                            <tr><td>2</td><td>26100002</td><td>Abrar Fahim</td><td>01800000002</td><td></td></tr>
+                            <tr><td>3</td><td>26100003</td><td>Tanvir Hasan</td><td>01900000003</td><td></td></tr>
+                            <tr><td>4</td><td>26100004</td><td>Rakibul Islam</td><td>01600000004</td><td></td></tr>
+                            <tr><td>5</td><td>26100005</td><td>Shakil Ahmed</td><td>01500000005</td><td></td></tr>
+                            <tr><td>6</td><td>26100006</td><td>MD. Sohag</td><td>01700000006</td><td></td></tr>
+                            <tr><td>7</td><td>26100007</td><td>Riyad Hossain</td><td>01800000007</td><td></td></tr>
+                            <tr><td>8</td><td>26100008</td><td>Jubayer Islam</td><td>01900000008</td><td></td></tr>
+                            <tr><td>9</td><td>26100009</td><td>Foisal Ahmed</td><td>01600000009</td><td></td></tr>
+                            <tr><td>10</td><td>26100010</td><td>Naimul Haque</td><td>01500000010</td><td></td></tr>
+                            <tr><td>11</td><td>26100011</td><td>Suman Roy</td><td>01700000011</td><td></td></tr>
+                            <tr><td>12</td><td>26100012</td><td>Kamrul Hasan</td><td>01800000012</td><td></td></tr>
+                            <tr><td>13</td><td>26100013</td><td>Arif Hossain</td><td>01900000013</td><td></td></tr>
+                            <tr><td>14</td><td>26100014</td><td>Saiful Islam</td><td>01600000014</td><td></td></tr>
+                            <tr><td>15</td><td>26100015</td><td>Mahbub Alam</td><td>01500000015</td><td></td></tr>
+                            <tr><td>16</td><td>26100016</td><td>Rana Ahmed</td><td>01700000016</td><td></td></tr>
+                            <tr><td>17</td><td>26100017</td><td>Imran Hossain</td><td>01800000017</td><td></td></tr>
+                            <tr><td>18</td><td>26100018</td><td>Dipok Kumar</td><td>01900000018</td><td></td></tr>
+                            <tr><td>19</td><td>26100019</td><td>Subrata Roy</td><td>01600000019</td><td></td></tr>
+                            <tr><td>20</td><td>26100020</td><td>Golam Mourtoza</td><td>01500000020</td><td></td></tr>
+                            <tr><td>21</td><td>26100021</td><td>Anik Sarker</td><td>01700000021</td><td></td></tr>
+                            <tr><td>22</td><td>26100022</td><td>Prodip Das</td><td>01800000022</td><td></td></tr>
+                            <!-- Data 23-45 -->
+                            <tr><td>23</td><td>26100023</td><td>Atikur Rahman</td><td>01900000023</td><td></td></tr>
+                            <tr><td>24</td><td>26100024</td><td>Moshiur Rahman</td><td>01600000024</td><td></td></tr>
+                            <tr><td>25</td><td>26100025</td><td>Rubel Mia</td><td>01500000025</td><td></td></tr>
+                            <tr><td>26</td><td>26100026</td><td>Shipon Hossain</td><td>01700000026</td><td></td></tr>
+                            <tr><td>27</td><td>26100027</td><td>Delwar Hossain</td><td>01800000027</td><td></td></tr>
+                            <tr><td>28</td><td>26100028</td><td>Harun Or Rashid</td><td>01900000028</td><td></td></tr>
+                            <tr><td>29</td><td>26100029</td><td>Abdul Karim</td><td>01600000029</td><td></td></tr>
+                            <tr><td>30</td><td>26100030</td><td>Shahidul Islam</td><td>01500000030</td><td></td></tr>
+                            <tr><td>31</td><td>26100031</td><td>Nurul Islam</td><td>01700000031</td><td></td></tr>
+                            <tr><td>32</td><td>26100032</td><td>Siddikur Rahman</td><td>01800000032</td><td></td></tr>
+                            <tr><td>33</td><td>26100033</td><td>Mizanur Rahman</td><td>01900000033</td><td></td></tr>
+                            <tr><td>34</td><td>26100034</td><td>Helal Uddin</td><td>01600000034</td><td></td></tr>
+                            <tr><td>35</td><td>26100035</td><td>Matin Uddin</td><td>01500000035</td><td></td></tr>
+                            <tr><td>36</td><td>26100036</td><td>Khalilur Rahman</td><td>01700000036</td><td></td></tr>
+                            <tr><td>37</td><td>26100037</td><td>Shafiqul Islam</td><td>01800000037</td><td></td></tr>
+                            <tr><td>38</td><td>26100038</td><td>Abul Bashar</td><td>01900000038</td><td></td></tr>
+                            <tr><td>39</td><td>26100039</td><td>Jasim Uddin</td><td>01600000039</td><td></td></tr>
+                            <tr><td>40</td><td>26100040</td><td>Mokhlesur Rahman</td><td>01500000040</td><td></td></tr>
+                            <tr><td>41</td><td>26100041</td><td>Rofiqul Islam</td><td>01700000041</td><td></td></tr>
+                            <tr><td>42</td><td>26100042</td><td>Nur Mohammad</td><td>01800000042</td><td></td></tr>
+                            <tr><td>43</td><td>26100043</td><td>Sohel Rana</td><td>01900000043</td><td></td></tr>
+                            <tr><td>44</td><td>26100044</td><td>Mizanur Islam</td><td>01600000044</td><td></td></tr>
+                            <tr><td>45</td><td>26100045</td><td>Ashraful Islam</td><td>01500000045</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- টিচার লিস্ট -->
+    <section id="teachers" class="py-5 bg-light">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Faculty Members</h2>
+            </div>
             <div class="row g-4">
-                <!-- Teacher 1 -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="custom-card teacher-card">
-                        <img src="https://picsum.photos/seed/t1/300/300" class="teacher-img" alt="Teacher">
-                        <div class="teacher-card-body">
-                            <h5 class="teacher-name">Prof. Dr. Rahman</h5>
-                            <p class="teacher-designation">Head of Dept (CSE)</p>
-                            <p class="small text-muted"><i class="fas fa-envelope me-1"></i> hod@prime.edu</p>
+                        <div class="teacher-img-wrapper">
+                            <img src="https://picsum.photos/seed/teacher1/400/400" alt="Teacher">
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1">Prof. Dr. A. Rahman</h5>
+                            <p class="text-muted small mb-2">Head of Department</p>
+                            <div class="teacher-social">
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Teacher 2 -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="custom-card teacher-card">
-                        <img src="https://picsum.photos/seed/t2/300/300" class="teacher-img" alt="Teacher">
-                        <div class="teacher-card-body">
-                            <h5 class="teacher-name">Mr. Kamal Hossain</h5>
-                            <p class="teacher-designation">Senior Lecturer</p>
-                            <p class="small text-muted"><i class="fas fa-envelope me-1"></i> kamal@prime.edu</p>
+                        <div class="teacher-img-wrapper">
+                            <img src="https://picsum.photos/seed/teacher2/400/400" alt="Teacher">
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1">Mrs. Fatema Khatun</h5>
+                            <p class="text-muted small mb-2">Senior Lecturer</p>
+                            <div class="teacher-social">
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Teacher 3 -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="custom-card teacher-card">
-                        <img src="https://picsum.photos/seed/t3/300/300" class="teacher-img" alt="Teacher">
-                        <div class="teacher-card-body">
-                            <h5 class="teacher-name">Ms. Nasreen Akter</h5>
-                            <p class="teacher-designation">Lecturer</p>
-                            <p class="small text-muted"><i class="fas fa-envelope me-1"></i> nasreen@prime.edu</p>
+                        <div class="teacher-img-wrapper">
+                            <img src="https://picsum.photos/seed/teacher3/400/400" alt="Teacher">
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1">Mr. Rajib Hassan</h5>
+                            <p class="text-muted small mb-2">Lecturer</p>
+                            <div class="teacher-social">
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Teacher 4 -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="custom-card teacher-card">
-                        <img src="https://picsum.photos/seed/t4/300/300" class="teacher-img" alt="Teacher">
-                        <div class="teacher-card-body">
-                            <h5 class="teacher-name">Mr. Jamal Uddin</h5>
-                            <p class="teacher-designation">Lecturer (Math)</p>
-                            <p class="small text-muted"><i class="fas fa-envelope me-1"></i> jamal@prime.edu</p>
+                        <div class="teacher-img-wrapper">
+                            <img src="https://picsum.photos/seed/teacher4/400/400" alt="Teacher">
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1">Mr. Kamal Uddin</h5>
+                            <p class="text-muted small mb-2">Lecturer (Lab)</p>
+                            <div class="teacher-social">
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -395,204 +616,218 @@
         </div>
     </section>
 
-    <!-- Notices & Updates Section -->
-    <section id="notices" class="section-padding bg-white">
+    <!-- এক্সাম ও ক্লাস টেস্ট -->
+    <section id="exams" class="py-5">
         <div class="container">
-            <h2 class="section-title">নোটিশ ও আপডেট</h2>
-            <div class="row g-4">
-                <div class="col-lg-8 mx-auto">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Exams & Class Tests</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="exam-item" data-aos="fade-right">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h5 class="fw-bold">Class Test 1 - CSE 201</h5>
+                                <p class="text-muted mb-0"><small>Chapter 3 & 4 | Room 302</small></p>
+                            </div>
+                            <span class="badge bg-success fs-6 px-3 py-2">20 Oct 2023</span>
+                        </div>
+                    </div>
                     
-                    <!-- Notice 1 -->
-                    <div class="custom-card mb-3">
-                        <div class="card-body p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title text-primary"><i class="fas fa-bullhorn me-2"></i> Mid-term Exam Routine Published</h5>
-                                <span class="badge bg-success">New</span>
+                    <div class="exam-item" data-aos="fade-right" data-aos-delay="100">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h5 class="fw-bold">Mid-Term Examination</h5>
+                                <p class="text-muted mb-0"><small>All Subjects | Full Routine Issued</small></p>
                             </div>
-                            <p class="card-text text-muted small mb-2">Posted: 15 Oct 2026</p>
-                            <p class="card-text">Spring 2026 সেমিস্টারের Mid-term পরীক্ষার রুটিন প্রকাশিত হয়েছে। সকল শিক্ষার্থীকে বিজ্ঞপ্তি ডাউনলোড করার অনুরোধ করা হলো।</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">View Notice <i class="fas fa-download ms-1"></i></a>
+                            <span class="badge bg-danger fs-6 px-3 py-2">01 Nov 2023</span>
                         </div>
                     </div>
-
-                    <!-- Notice 2 -->
-                    <div class="custom-card mb-3">
-                        <div class="card-body p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title text-warning"><i class="fas fa-tasks me-2"></i> CSE 213 Assignment Submission</h5>
-                                <span class="badge bg-warning text-dark">Urgent</span>
+                    
+                    <div class="exam-item" data-aos="fade-right" data-aos-delay="200">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h5 class="fw-bold">Presentation Submission</h5>
+                                <p class="text-muted mb-0"><small>Group Project | Soft Copy</small></p>
                             </div>
-                            <p class="card-text text-muted small mb-2">Posted: 12 Oct 2026</p>
-                            <p class="card-text">Structured Programming (CSE 213) কোর্সের ৩য় অ্যাসাইনমেন্ট আগামী শনিবারের মধ্যে জমা দিতে হবে।</p>
-                            <button class="btn btn-sm btn-outline-dark">Details</button>
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">15 Nov 2023</span>
                         </div>
                     </div>
-
-                    <!-- Notice 3 -->
-                    <div class="custom-card">
-                        <div class="card-body p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title text-secondary"><i class="fas fa-calendar-alt me-2"></i> Class Suspension</h5>
-                                <span class="badge bg-secondary">General</span>
-                            </div>
-                            <p class="card-text text-muted small mb-2">Posted: 10 Oct 2026</p>
-                            <p class="card-text">আগামী ২০ অক্টোবর বিশ্ববিদ্যালয়ের সাধারণ ছুটির কারণে ক্লাস স্থগিত থাকবে।</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery/Updates Section -->
-    <section class="section-padding bg-light">
+    <!-- গ্যালারি -->
+    <section id="gallery" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title">ক্লাস মুহূর্ত (Gallery)</h2>
-            <div class="row g-3">
-                <div class="col-md-4 col-6">
-                    <img src="https://picsum.photos/seed/class1/400/300" class="img-fluid rounded shadow-sm w-100" alt="Class moment">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Gallery</h2>
+            </div>
+            
+            <div id="carouselExampleCaptions" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel" data-aos="zoom-in">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"></button>
                 </div>
-                <div class="col-md-4 col-6">
-                    <img src="https://picsum.photos/seed/class2/400/300" class="img-fluid rounded shadow-sm w-100" alt="Class moment">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://picsum.photos/seed/uni1/1200/500" class="d-block w-100" alt="Campus Life">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded py-2">
+                            <h5>Campus Life</h5>
+                            <p>Beautiful moments at Prime University.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/seed/uni2/1200/500" class="d-block w-100" alt="Programming Contest">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded py-2">
+                            <h5>Programming Contest</h5>
+                            <p>Students showcasing their coding skills.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/seed/uni3/1200/500" class="d-block w-100" alt="Cultural Program">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded py-2">
+                            <h5>Cultural Program</h5>
+                            <p>Celebrating our traditions.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/seed/uni4/1200/500" class="d-block w-100" alt="Seminar">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded py-2">
+                            <h5>Tech Seminar</h5>
+                            <p>Learning from industry experts.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 col-6">
-                    <img src="https://picsum.photos/seed/class3/400/300" class="img-fluid rounded shadow-sm w-100" alt="Class moment">
-                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container text-center">
-            <div class="mb-4">
-                <h5>Prime University CSE Batch 261</h5>
-                <p>114/116, Mazar Road, Mirpur-1, Dhaka.</p>
+    <!-- ফুটার -->
+    <footer id="contact">
+        <div class="container pb-4">
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-right">
+                    <div class="footer-logo">
+                        <i class="fas fa-university me-2" style="color: var(--secondary-color);"></i> Prime University
+                    </div>
+                    <p class="text-muted">Department of CSE<br>Evening Batch 261</p>
+                    <div class="mt-3">
+                        <p class="mb-1"><i class="fas fa-phone-alt me-2 text-warning"></i> +880 2-XXXXXXX</p>
+                        <p class="mb-1"><i class="fas fa-envelope me-2 text-warning"></i> info@primeuniversity.edu.bd</p>
+                        <p><i class="fas fa-map-marker-alt me-2 text-warning"></i> Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up">
+                    <h5 class="fw-bold mb-3 text-warning">Quick Links</h5>
+                    <a href="#hero" class="footer-link">Home</a>
+                    <a href="#notices" class="footer-link">Notice</a>
+                    <a href="#routine" class="footer-link">Routine</a>
+                    <a href="#students" class="footer-link">Results</a>
+                    <a href="#gallery" class="footer-link">Gallery</a>
+                </div>
+                <div class="col-md-4" data-aos="fade-left">
+                    <h5 class="fw-bold mb-3 text-warning">Location</h5>
+                    <div class="map-container">
+                        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.360622461567!2d90.3833333!3d23.7500000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sPrime%20University!5e0!3m2!1sen!2sbd!4v1697635485623!5m2!1sen!2sbd" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
             </div>
-            <div class="social-links mb-4">
-                <a href="#" class="mx-2"><i class="fab fa-facebook fa-lg"></i></a>
-                <a href="#" class="mx-2"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="mx-2"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#" class="mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
+            <hr class="border-secondary">
+            <div class="text-center text-muted small">
+                &copy; 2026 Prime University CSE Evening 261 Batch. All Rights Reserved.
             </div>
-            <hr>
-            <p class="small mb-0">&copy; 2026 Prime University CSE 261 Batch. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS Bundle -->
+    <!-- নোটিশ মডাল -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="noticeModalTitle">Notice Title</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-muted mb-3"><i class="far fa-calendar-alt me-2"></i> <span id="noticeModalDate"></span></h6>
+                    <p id="noticeModalDesc">Notice description goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- স্ক্রিপ্ট লাইব্রেরি -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- Custom JavaScript for Student Data -->
     <script>
-        // Data extracted from the prompt images (First 22 + Next 23 approx)
-        // I have reconstructed the list to match the prompt's context perfectly.
-        // IDs starting with 221 as typically seen in the snippet.
-        
-        const students = [
-            { si: 1, id: "22115351", name: "Sakib Ahammed", mobile: "01700000001" },
-            { si: 2, id: "22115352", name: "Abu Sayeed", mobile: "01700000002" },
-            { si: 3, id: "22115353", name: "Md. Omar Faruk", mobile: "01700000003" },
-            { si: 4, id: "22115354", name: "Md. Rafiqul Islam", mobile: "01800000004" },
-            { si: 5, id: "22115355", name: "Jasim Uddin", mobile: "01900000005" },
-            { si: 6, id: "22115356", name: "Tanvir Ahmed", mobile: "01700000006" },
-            { si: 7, id: "22115357", name: "Sohel Rana", mobile: "01600000007" },
-            { si: 8, id: "22115358", name: "Rakib Hasan", mobile: "01500000008" },
-            { si: 9, id: "22115359", name: "Mizanur Rahman", mobile: "01700000009" },
-            { si: 10, id: "22115360", name: "Kamrul Hasan", mobile: "01800000010" },
-            { si: 11, id: "22115361", name: "Arif Hossain", mobile: "01900000011" },
-            { si: 12, id: "22115362", name: "Musaddik Hossain", mobile: "01700000012" },
-            { si: 13, id: "22115363", name: "Sumon Mia", mobile: "01600000013" },
-            { si: 14, id: "22115364", name: "Al-Amin", mobile: "01500000014" },
-            { si: 15, id: "22115365", name: "Habibur Rahman", mobile: "01700000015" },
-            { si: 16, id: "22115366", name: "Saiful Islam", mobile: "01800000016" },
-            { si: 17, id: "22115367", name: "Jahangir Alam", mobile: "01900000017" },
-            { si: 18, id: "22115368", name: "Emran Hossain", mobile: "01700000018" },
-            { si: 19, id: "22115369", name: "Delwar Hossain", mobile: "01600000019" },
-            { si: 20, id: "22115370", name: "Nur Islam", mobile: "01500000020" },
-            { si: 21, id: "22115371", name: "Hanif Mia", mobile: "01700000021" },
-            { si: 22, id: "22115372", name: "Abdul Karim", mobile: "01800000022" },
-            // Data from second image snippet (23 onwards)
-            { si: 23, id: "22115373", name: "Khairuzzaman", mobile: "01700000023" },
-            { si: 24, id: "22115374", name: "Amit Das", mobile: "01900000024" },
-            { si: 25, id: "22115375", name: "Rabiul Islam", mobile: "01700000025" },
-            { si: 26, id: "22115376", name: "Shafiqul Islam", mobile: "01600000026" },
-            { si: 27, id: "22115377", name: "Md. Hanif", mobile: "01500000027" },
-            { si: 28, id: "22115378", name: "Biplab Kumar", mobile: "01700000028" },
-            { si: 29, id: "22115379", name: "Subrata Roy", mobile: "01800000029" },
-            { si: 30, id: "22115380", name: "Prince Kumar", mobile: "01900000030" },
-            { si: 31, id: "22115381", name: "Roton Das", mobile: "01700000031" },
-            { si: 32, id: "22115382", name: "Goutam Saha", mobile: "01600000032" },
-            { si: 33, id: "22115383", name: "Prodip Kumar", mobile: "01500000033" },
-            { si: 34, id: "22115384", name: "Sujan Roy", mobile: "01700000034" },
-            { si: 35, id: "22115385", name: "Milon Hossain", mobile: "01800000035" },
-            { si: 36, id: "22115386", name: "Shipon Hossain", mobile: "01900000036" },
-            { si: 37, id: "22115387", name: "Tofayel Ahmed", mobile: "01700000037" },
-            { si: 38, id: "22115388", name: "Jewel Rana", mobile: "01600000038" },
-            { si: 39, id: "22115389", name: "Masud Rana", mobile: "01500000039" },
-            { si: 40, id: "22115390", name: "Sajib Ahmed", mobile: "01700000040" },
-            { si: 41, id: "22115391", name: "Pappu Mia", mobile: "01800000041" },
-            { si: 42, id: "22115392", name: "Liton Mia", mobile: "01900000042" },
-            { si: 43, id: "22115393", name: "Babul Ahmed", mobile: "01700000043" },
-            { si: 44, id: "22115394", name: "Nurul Islam", mobile: "01600000044" },
-            { si: 45, id: "22115395", name: "Abdul Mannan", mobile: "01500000045" }
-        ];
-
-        // Function to render table
-        function renderTable(data) {
-            const tbody = document.getElementById('studentTableBody');
-            tbody.innerHTML = '';
-            document.getElementById('studentCount').innerText = data.length;
-
-            data.forEach(student => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${student.si}</td>
-                    <td><span class="badge bg-light text-dark border">${student.id}</span></td>
-                    <td class="fw-bold text-primary">${student.name}</td>
-                    <td><a href="tel:${student.mobile}" class="text-decoration-none text-dark"><i class="fas fa-phone-alt text-success me-2"></i>${student.mobile}</a></td>
-                    <td><span class="badge bg-success">Active</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // Initial Render
-        renderTable(students);
-
-        // Search Functionality
-        document.getElementById('searchInput').addEventListener('keyup', function(e) {
-            const term = e.target.value.toLowerCase();
-            const filtered = students.filter(student => 
-                student.name.toLowerCase().includes(term) || 
-                student.id.includes(term) ||
-                student.mobile.includes(term)
-            );
-            renderTable(filtered);
+        // AOS এনিমেশন ইনিশিয়ালাইজ
+        AOS.init({
+            once: true, // একবার এনিমেশন হবে
+            offset: 100,
+            duration: 800,
         });
 
-        // Active Link Handling
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section, header');
+        // স্টুডেন্ট সার্চ ফাংশন
+        function searchStudent() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("studentInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("studentTable");
+            tr = table.getElementsByTagName("tr");
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute('id');
+            // লুপ, ১ নম্বর থেকে শুরু করব (Header বাদ)
+            for (i = 1; i < tr.length; i++) {
+                // নাম (index 2) এবং আইডি (index 1) চেক করব
+                let tdName = tr[i].getElementsByTagName("td")[2];
+                let tdID = tr[i].getElementsByTagName("td")[1];
+                
+                if (tdName || tdID) {
+                    let txtName = tdName.textContent || tdName.innerText;
+                    let txtID = tdID.textContent || tdID.innerText;
+                    
+                    if (txtName.toUpperCase().indexOf(filter) > -1 || txtID.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
-            });
+            }
+        }
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
+        // নোটিশ মডাল দেখানোর ফাংশন
+        function showNoticeModal(title, desc, date) {
+            document.getElementById('noticeModalTitle').textContent = title;
+            document.getElementById('noticeModalDesc').textContent = desc;
+            document.getElementById('noticeModalDate').textContent = date;
+            
+            var myModal = new bootstrap.Modal(document.getElementById('noticeModal'));
+            myModal.show();
+        }
+
+        // নেভিগেশন বার ব্যাকগ্রাউন্ড চেঞ্জ অন স্ক্রল
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
         });
     </script>
 </body>
-
 </html>
